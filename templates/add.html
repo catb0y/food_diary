@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Form -->
+
+<main role="main" class="container">
+  <div class="starter-template">
+
+    <div class="row">
+      <form action="/add" method="POST">
+
+        <h3>Enter your entry (yes)</h3>
+        <br><textarea rows="1" type="text" name="food" placeholder="Food" required></textarea>
+        <br><textarea rows="1" type="text" name="discomfort" placeholder="Any discomfort?" required></textarea>
+
+
+        <br><input class="button-primary" type="submit" value="Submit">
+
+      </form>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
