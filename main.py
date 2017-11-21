@@ -52,7 +52,10 @@ def add():
     return render_template('add.html')
 
 
-
+@app.route('/archive')
+def archive():
+    meals = Meal.query.all()
+    return render_template('archive.html', meals=meals)
 
 
 

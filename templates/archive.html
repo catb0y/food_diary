@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<main role="main" class="container">
+  <div class="starter-template">
+
+    {% for meal in meals %}
+    <div class="row">
+      <p>
+        {{ meal.food }} - {{ meal.discomfort }}
+      </p>
+    </div>
+    {% endfor %}
+
+  </div>
+</main>
+
+{% endblock %}
