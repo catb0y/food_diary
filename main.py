@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from flask import Flask, render_template, url_for, request, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
+from flask import jsonify
 import os
 
 app = Flask(__name__)
@@ -24,17 +25,10 @@ class Meal(db.Model):
 @app.route('/')
 @app.route('/index')
 def main():
-    if request.method == 'POST':
-        food = request.form['food']
-        discomfort = request.form['discomfort']
+    # fetch data (jsonify?)
+    meals = Meal.query.all()
 
-        meal = Meal(food=food, discomfort=discomfort)
-        db.session.add(meal)
-        db.session.commit()
-        flash("Got it!")
-        return redirect(url_for('main'))
-
-    return render_template('index.html')
+    return render_template('index.html', meals=meals)
 
 
 @app.route('/add', methods = ['GET', 'POST'])
