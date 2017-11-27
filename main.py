@@ -3,6 +3,9 @@ from flask import Flask, render_template, url_for, request, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask import jsonify
 import os
+import json
+import pygal
+import jsonpickle
 
 app = Flask(__name__)
 app.secret_key = "whatever floats your boat"
@@ -25,10 +28,13 @@ class Meal(db.Model):
 @app.route('/')
 @app.route('/index')
 def main():
-    # fetch data (jsonify?)
-    meals = Meal.query.all()
+    labels = Meal.query.all()
 
-    return render_template('index.html', meals=meals)
+    values = labels # can you iterate through a query? here or in html
+
+
+
+    return render_template('index.html', labels=labels, values=values)
 
 
 @app.route('/add', methods = ['GET', 'POST'])
@@ -57,3 +63,10 @@ def archive():
 
 if __name__== '__main__':
     app.run(debug=True)
+
+
+
+# Todo Breakdown
+# create chart
+    # how to jsonify my classes? // how to get code in JS jinja2?
+    # how to turn my jsonized content into chart (in JS?)?
