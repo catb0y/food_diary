@@ -28,10 +28,18 @@ class Meal(db.Model):
 @app.route('/')
 @app.route('/index')
 def main():
-    labels = Meal.query.all()
+    meals = Meal.query.all()
 
-    values = labels # can you iterate through a query? here or in html
+    labels = []
+    for item in meals:
+        labels.append(item.food)
 
+    values = []
+    for item in meals:
+        x = item.discomfort.count("yes") 
+        values.append(x)
+
+        # avoid repetitions in values list
 
 
     return render_template('index.html', labels=labels, values=values)
