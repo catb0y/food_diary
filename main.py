@@ -23,26 +23,25 @@ class Meal(db.Model):
     discomfort = db.Column(db.String(60))
 
 
-
 # Views
 @app.route('/')
 @app.route('/index')
 def main():
     meals = Meal.query.all()
 
-    labels = []
-    for item in meals:
-        labels.append(item.food)
-
-    values = []
-    for item in meals:
-        x = item.discomfort.count("yes") 
-        values.append(x)
-
-        # avoid repetitions in values list
+    results = {}
+    discomfort_translations = {"yes": 1, "bit": 0.5, "no": 0}
+    for meal in meals:
+        print meal.food, meal.discomfort, discomfort_translations[meal.discomfort]
+        if meal.food not in results:
+            results[meal.food] = discomfort_translations[meal.discomfort]
+        else:
+            results[meal.food] += discomfort_translations[meal.discomfort]
 
 
-    return render_template('index.html', labels=labels, values=values)
+
+
+    return render_template('index.html', labels=results.keys(), values=results.values())
 
 
 @app.route('/add', methods = ['GET', 'POST'])
@@ -71,10 +70,3 @@ def archive():
 
 if __name__== '__main__':
     app.run(debug=True)
-
-
-
-# Todo Breakdown
-# create chart
-    # how to jsonify my classes? // how to get code in JS jinja2?
-    # how to turn my jsonized content into chart (in JS?)?
