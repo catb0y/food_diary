@@ -1,11 +1,7 @@
 #!/usr/bin/python
 from flask import Flask, render_template, url_for, request, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
-from flask import jsonify
 import os
-import json
-import pygal
-import jsonpickle
 
 app = Flask(__name__)
 app.secret_key = "whatever floats your boat"
